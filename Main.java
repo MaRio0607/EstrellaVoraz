@@ -52,7 +52,7 @@ public class Main {
         lugaresAll.get(destino).add(  segundoLugar  );
     }
 
-    public boolean Voraz(Lugar origen, Lugar objetivo){
+    public boolean AEstrella(Lugar origen, Lugar objetivo){
         HashMap<String, Boolean> visitados = new HashMap<>();
         String currentNodo= "Inicio";
         String nodoAnterior="";
@@ -91,44 +91,7 @@ public class Main {
         return currentNodo.equals(objetivo.getNombre());
     }
 
-    public boolean AEstrella(Lugar origen, Lugar objetivo){
-        HashMap<String, Boolean> visitados = new HashMap<>();
-        String nodoActual= "Inicio del viaje";
-        LinkedList<Lugar> queue = new LinkedList<Lugar>();
-        Lugar aux= new Lugar();
-        float costoTotal=0;
-        lugaresAll.forEach((nombreLugar,lugaresDisponibles)->{
-            visitados.put(nombreLugar,false);
-        });
 
-        visitados.replace(origen.getNombre(),true);
-        queue.push(new Lugar("Inicio-"+origen.getNombre(),origen.getCosto(),origen.getDistRect()) ); //insertar nodo inicial;
-        //Iterar
-        while (queue.size() >0 && !getOrigen(nodoActual).equals(objetivo.getNombre()) ){
-            //Crear historial y push
-            aux =  (queue.poll() );
-            nodoActual= aux.getNombre();
-            if(getOrigen(nodoActual).equals(objetivo.getNombre())) break;
-            costoTotal+=aux.costo;
-            System.out.println( nodoActual+" "+ (aux.getCosto()+aux.getDistRect()));
-
-            visitados.put( getDestino(nodoActual) ,true);
-
-            String finalCurrentNodo = nodoActual;
-            LinkedList<Lugar> auxQueue = new LinkedList<>();
-
-            lugaresAll.get( getDestino(finalCurrentNodo) ).forEach( (ciudad)->{
-                if(!visitados.get(ciudad.nombre) ){
-
-                    auxQueue.push( new Lugar(getDestino(finalCurrentNodo)+"-"+ciudad.getNombre(),ciudad.getCosto(),ciudad.distRect) );
-                }
-            });
-            auxQueue.sort(compAEstrella);
-            queue.addAll(auxQueue);
-        }
-        printSumario(nodoActual,costoTotal);
-        return getOrigen(nodoActual).equals(objetivo.getNombre());
-    }
 
 
 
@@ -214,10 +177,10 @@ public class Main {
         
 
         System.out.println("\n");
-        System.out.println("Algoritmo Voraz\n");
-        grafo.AEstrella(hermosillo,veracruz);
-        System.out.println("\n");
+        //System.out.println("Algoritmo Voraz\n");
+        //grafo.AEstrella(hermosillo,veracruz);
+       // System.out.println("\n");
         System.out.println("Algoritmo A * \n");
-        grafo.Voraz(hermosillo,veracruz);
+        grafo.AEstrella(hermosillo,veracruz);
     }
 }
