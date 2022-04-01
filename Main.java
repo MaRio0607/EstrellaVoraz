@@ -51,45 +51,6 @@ public class Main {
         segundoLugar.setCosto(transicionCosto);
         lugaresAll.get(destino).add(  segundoLugar  );
     }
-    public boolean AEstrella(Lugar origen, Lugar objetivo){
-        HashMap<String, Boolean> visitados = new HashMap<>();
-        String nodoActual= "Inicio del viaje";
-        LinkedList<Lugar> queue = new LinkedList<Lugar>();
-        Lugar aux= new Lugar();
-        float costoTotal=0;
-        lugaresAll.forEach((nombreLugar,lugaresDisponibles)->{
-            visitados.put(nombreLugar,false);
-        });
-
-        visitados.replace(origen.getNombre(),true);
-        queue.push(new Lugar("Inicio-"+origen.getNombre(),origen.getCosto(),origen.getDistRect()) ); //insertar nodo inicial;
-        //Iterar
-        while (queue.size() >0 && !getOrigen(nodoActual).equals(objetivo.getNombre()) ){
-            //Crear historial y push
-            aux =  (queue.poll() );
-            nodoActual= aux.getNombre();
-            if(getOrigen(nodoActual).equals(objetivo.getNombre())) break;
-            costoTotal+=aux.costo;
-            System.out.println( nodoActual+"  (f(n) = "+ (aux.getCosto()+aux.getDistRect()) +")" );
-            //Marcar como visitado el nodo: estar ahí y expandir los lugares a donde puede ir
-            visitados.put( getDestino(nodoActual) ,true);
-
-            //Lo pidio la funcion lambda, no quiere currentNodo
-            String finalCurrentNodo = nodoActual;
-            LinkedList<Lugar> auxQueue = new LinkedList<>();
-            //Ver desde la ciudad actual, las ciudades a las que puedo ir
-            lugaresAll.get( getDestino(finalCurrentNodo) ).forEach( (ciudad)->{
-                if(!visitados.get(ciudad.nombre) ){
-                    //Ordenar los nodos de ese arbol, luego pushearlos así
-                    auxQueue.push( new Lugar(getDestino(finalCurrentNodo)+"-"+ciudad.getNombre(),ciudad.getCosto(),ciudad.distRect) );
-                }
-            });
-            auxQueue.sort(compAEstrella);
-            queue.addAll(auxQueue);
-        }
-        printSumario(nodoActual,costoTotal);
-        return getOrigen(nodoActual).equals(objetivo.getNombre());
-    }
 
     public boolean Voraz(Lugar origen, Lugar objetivo){
         HashMap<String, Boolean> visitados = new HashMap<>();
@@ -128,6 +89,45 @@ public class Main {
         }
         printSumario(currentNodo,costoTotal);
         return currentNodo.equals(objetivo.getNombre());
+    }
+
+    public boolean AEstrella(Lugar origen, Lugar objetivo){
+        HashMap<String, Boolean> visitados = new HashMap<>();
+        String nodoActual= "Inicio del viaje";
+        LinkedList<Lugar> queue = new LinkedList<Lugar>();
+        Lugar aux= new Lugar();
+        float costoTotal=0;
+        lugaresAll.forEach((nombreLugar,lugaresDisponibles)->{
+            visitados.put(nombreLugar,false);
+        });
+
+        visitados.replace(origen.getNombre(),true);
+        queue.push(new Lugar("Inicio-"+origen.getNombre(),origen.getCosto(),origen.getDistRect()) ); //insertar nodo inicial;
+        //Iterar
+        while (queue.size() >0 && !getOrigen(nodoActual).equals(objetivo.getNombre()) ){
+            //Crear historial y push
+            aux =  (queue.poll() );
+            nodoActual= aux.getNombre();
+            if(getOrigen(nodoActual).equals(objetivo.getNombre())) break;
+            costoTotal+=aux.costo;
+            System.out.println( nodoActual+"  (f(n) = "+ (aux.getCosto()+aux.getDistRect()) +")" );
+
+            visitados.put( getDestino(nodoActual) ,true);
+
+            String finalCurrentNodo = nodoActual;
+            LinkedList<Lugar> auxQueue = new LinkedList<>();
+
+            lugaresAll.get( getDestino(finalCurrentNodo) ).forEach( (ciudad)->{
+                if(!visitados.get(ciudad.nombre) ){
+
+                    auxQueue.push( new Lugar(getDestino(finalCurrentNodo)+"-"+ciudad.getNombre(),ciudad.getCosto(),ciudad.distRect) );
+                }
+            });
+            auxQueue.sort(compAEstrella);
+            queue.addAll(auxQueue);
+        }
+        printSumario(nodoActual,costoTotal);
+        return getOrigen(nodoActual).equals(objetivo.getNombre());
     }
 
 
