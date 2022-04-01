@@ -54,7 +54,7 @@ public class Main {
 
     public boolean Voraz(Lugar origen, Lugar objetivo){
         HashMap<String, Boolean> visitados = new HashMap<>();
-        String currentNodo= "Se comienza en: ";
+        String currentNodo= "Inicio";
         String nodoAnterior="";
         LinkedList<Lugar> queue = new LinkedList<Lugar>();
         Lugar aux= new Lugar();
@@ -70,7 +70,7 @@ public class Main {
             aux =  (queue.poll() );
             currentNodo= aux.getNombre();
             costoTotal+=aux.costo;
-            System.out.println(nodoAnterior+"->"+currentNodo+"  (Costo: "+aux.costo+" , dist. a Puebla: "+aux.distRect+")" );
+            System.out.println(nodoAnterior+"->"+currentNodo+"  (Costo: "+aux.costo+" , dist. a : "+aux.distRect+")" );
        
             visitados.put(currentNodo,true);
 
@@ -110,7 +110,7 @@ public class Main {
             nodoActual= aux.getNombre();
             if(getOrigen(nodoActual).equals(objetivo.getNombre())) break;
             costoTotal+=aux.costo;
-            System.out.println( nodoActual+"  (f(n) = "+ (aux.getCosto()+aux.getDistRect()) +")" );
+            System.out.println( nodoActual+" "+ (aux.getCosto()+aux.getDistRect()));
 
             visitados.put( getDestino(nodoActual) ,true);
 
@@ -139,62 +139,85 @@ public class Main {
 
 
 
-
     public static void main(String[] args) {
-        Lugar hermosillo = new Lugar("Hermosillo",0,1708);
-      Lugar chihuahua = new Lugar("Chihuahua",0,1333);
-        Lugar guanajuato = new Lugar("Guanajuato",0,387);
-        Lugar tepic = new Lugar("Tepic",0,750);
-        Lugar  guadalajara = new Lugar("Guadalajara",0,569);
-        Lugar  reynosa= new Lugar("Reynosa",0,783);
-        Lugar  pachuca= new Lugar("Pachuca",0,132);
-        Lugar  cuernavaca= new Lugar("Cuernavaca",0,109);
-        Lugar  acapulco = new Lugar("Acapulco",0,303);
-        Lugar zacatecas = new Lugar("Zacatecas",0,615);
-        Lugar aguascalientes = new Lugar("Aguascalientes",0,530);
-        Lugar puebla = new Lugar("Puebla",0,0);
-        Lugar veracruz= new Lugar("Veracruz",0,217);
+      Lugar acapulco = new Lugar("Acapulco",0,400);
+      Lugar aguascalientes = new Lugar("Aguascalientes",0,400);
+      Lugar chihuahua = new Lugar("Chihuahua",0,1500);
+      Lugar cuernavaca = new Lugar("Cuernavaca",0,300);
+      Lugar guadalajara = new Lugar("Guadalajara",0,450);
+      Lugar guanajuato = new Lugar("Guanajuato",0,430);
+      Lugar  hermosillo = new Lugar("Hermosillo",0,2000);
+      Lugar  morelia = new Lugar("Morelia",0,500);
+      Lugar  pachuca = new Lugar("Pachuca",0,380);
+      Lugar  puebla = new Lugar("Puebla",0,100);
+      Lugar  reynosa = new Lugar("Reynosa",0,1300);
+      Lugar sanluispotosi = new Lugar("San Luis Potosi",0,750);
+      Lugar tepic = new Lugar("Tepic",0,600);
+      Lugar veracruz = new Lugar("Veracruz",0,0);
+      Lugar zacatecas = new Lugar("Zacatecas",0,800);
 
         Main grafo = new Main();
-        grafo.addLugares(hermosillo);
-        grafo.addLugares(zacatecas);
-        grafo.addLugares(guanajuato);
-        grafo.addLugares(tepic);
-        grafo.addLugares(guadalajara);
-        grafo.addLugares(reynosa);
-        grafo.addLugares(pachuca);
-        grafo.addLugares(cuernavaca);
-        grafo.addLugares(acapulco);
-        grafo.addLugares(aguascalientes);
-        grafo.addLugares(chihuahua);
-        grafo.addLugares(puebla);
-        grafo.addLugares(veracruz);
+       
+/* Registro de los grafos */ 
+    
+      grafo.addLugares(acapulco);
+      grafo.addLugares(aguascalientes);
+      grafo.addLugares(chihuahua);
+      grafo.addLugares(cuernavaca);
+      grafo.addLugares(guadalajara);
+      grafo.addLugares(guanajuato);
+      grafo.addLugares(hermosillo);
+      grafo.addLugares(morelia);
+      grafo.addLugares(pachuca);
+      grafo.addLugares(puebla);
+      grafo.addLugares(reynosa);
+      grafo.addLugares(sanluispotosi);
+      grafo.addLugares(tepic);
+      grafo.addLugares(veracruz);
+      grafo.addLugares(zacatecas);
 
-        grafo.Conexion(hermosillo.nombre,chihuahua.nombre,690);
-        grafo.Conexion(hermosillo.nombre,aguascalientes.nombre,1533);
-        grafo.Conexion(aguascalientes.nombre,chihuahua.nombre,946);
-        grafo.Conexion(aguascalientes.nombre,pachuca.nombre,510);
-        grafo.Conexion(guanajuato.nombre,pachuca.nombre,373);
-        grafo.Conexion(puebla.nombre,acapulco.nombre,425);
-        grafo.Conexion(acapulco.nombre,cuernavaca.nombre,290);
-        grafo.Conexion(pachuca.nombre,cuernavaca.nombre,180);
-        grafo.Conexion(guadalajara.nombre,tepic.nombre,204);
-        grafo.Conexion(reynosa.nombre,chihuahua.nombre,1025);
-        grafo.Conexion(reynosa.nombre,guanajuato.nombre,841);
-        grafo.Conexion(reynosa.nombre,pachuca.nombre,869);
-        grafo.Conexion(hermosillo.nombre,zacatecas.nombre,1420);
-        grafo.Conexion(zacatecas.nombre,aguascalientes.nombre,118);
-        grafo.Conexion(aguascalientes.nombre,guadalajara.nombre,220);
-        grafo.Conexion(cuernavaca.nombre,puebla.nombre,158);
-        grafo.Conexion(cuernavaca.nombre,veracruz.nombre,435);
-        grafo.Conexion(veracruz.nombre,puebla.nombre,274);
-        grafo.Conexion(zacatecas.nombre,guanajuato.nombre,300);
-        grafo.Conexion(tepic.nombre,zacatecas.nombre,543);
-        grafo.Conexion(pachuca.nombre,veracruz.nombre,382);
-     
-        System.out.println("********Algoritmo A estrella********");
+/* Conexiones de los grafos */
+      grafo.Conexion(acapulco.nombre,cuernavaca.nombre,290);
+      grafo.Conexion(acapulco.nombre,puebla.nombre,425);
+      
+              grafo.Conexion(aguascalientes.nombre,chihuahua.nombre,946);
+      grafo.Conexion(aguascalientes.nombre,pachuca.nombre,510);
+      grafo.Conexion(aguascalientes.nombre,guadalajara.nombre,220);
+      grafo.Conexion(aguascalientes.nombre,hermosillo.nombre,1533);
+      grafo.Conexion(aguascalientes.nombre,zacatecas.nombre,543);
+      
+      grafo.Conexion(chihuahua.nombre,tepic.nombre,1147);
+      grafo.Conexion(chihuahua.nombre,reynosa.nombre,1025);
+      grafo.Conexion(chihuahua.nombre,hermosillo.nombre,690);
+      
+      grafo.Conexion(cuernavaca.nombre,puebla.nombre,158);
+      grafo.Conexion(cuernavaca.nombre,veracruz.nombre,435);
+      grafo.Conexion(cuernavaca.nombre,pachuca.nombre,180);
+      
+      grafo.Conexion(guadalajara.nombre,tepic.nombre,204);
+      
+      grafo.Conexion(guanajuato.nombre,pachuca.nombre,373);
+      grafo.Conexion(guanajuato.nombre,reynosa.nombre,841);
+      grafo.Conexion(guanajuato.nombre,zacatecas.nombre,300);
+      
+      grafo.Conexion(hermosillo.nombre,zacatecas.nombre,1420);
+      
+      grafo.Conexion(morelia.nombre,puebla.nombre,427);
+      
+      grafo.Conexion(pachuca.nombre,sanluispotosi.nombre,424);
+      grafo.Conexion(pachuca.nombre,veracruz.nombre,382);
+      grafo.Conexion(pachuca.nombre,reynosa.nombre,869);
+      
+      grafo.Conexion(tepic.nombre,zacatecas.nombre,543);
+      
+      grafo.Conexion(veracruz.nombre,puebla.nombre,274);
+        
+
+        System.out.println("\n");
+        System.out.println("Algoritmo Voraz\n");
         grafo.AEstrella(hermosillo,veracruz);
-        System.out.println("********Algoritmo Voraz********");
+        System.out.println("\n");
+        System.out.println("Algoritmo A * \n");
         grafo.Voraz(hermosillo,veracruz);
     }
 }

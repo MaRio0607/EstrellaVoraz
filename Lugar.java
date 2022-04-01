@@ -45,6 +45,7 @@ public class Lugar {
         return Objects.hash(getNombre(), getCosto(), getDistRect());
     }
   
+  
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
