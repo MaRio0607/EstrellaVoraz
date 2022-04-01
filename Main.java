@@ -14,13 +14,6 @@ public class Main {
         }
     };
 
-    Comparator<Lugar> compAEstrella = new Comparator<Lugar>() {
-        @Override
-        public int compare(Lugar P1, Lugar P2) {
-            return (P1.getDistRect()+P2.getCosto()) < ( P2.getDistRect()+P2.getCosto() ) ? -1:1 ;
-        }
-    };
-
     public Main(HashMap<String, ArrayList<Lugar> > lugaresAll) {
         this.lugaresAll = lugaresAll;
     }
@@ -143,7 +136,7 @@ public class Main {
       grafo.Conexion(acapulco.nombre,cuernavaca.nombre,290);
       grafo.Conexion(acapulco.nombre,puebla.nombre,425);
       
-              grafo.Conexion(aguascalientes.nombre,chihuahua.nombre,946);
+      grafo.Conexion(aguascalientes.nombre,chihuahua.nombre,946);
       grafo.Conexion(aguascalientes.nombre,pachuca.nombre,510);
       grafo.Conexion(aguascalientes.nombre,guadalajara.nombre,220);
       grafo.Conexion(aguascalientes.nombre,hermosillo.nombre,1533);
